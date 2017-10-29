@@ -151,7 +151,7 @@ Rigidbody2D:
   m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 9.8
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fcea143fe020044900b8a0d44ac747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpeed: 5
-  jumpSpeed: 5
+  topSpeed: 20
+  jumpSpeed: 15
 --- !u!232 &91459417
 DistanceJoint2D:
   m_ObjectHideFlags: 0
@@ -618,8 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fcea143fe020044900b8a0d44ac747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpeed: 30
-  jumpSpeed: 10
+  topSpeed: 50
+  jumpSpeed: 30
 --- !u!50 &452413808
 Rigidbody2D:
   serializedVersion: 4
@@ -634,7 +634,7 @@ Rigidbody2D:
   m_Mass: 3.85
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 9.8
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -1882,7 +1882,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1261523571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 14.9, z: -0.028126832}
+  m_LocalPosition: {x: -4.4, y: 3.2, z: -0.028126832}
   m_LocalScale: {x: 4.290315, y: 4.290314, z: 4.290314}
   m_Children: []
   m_Father: {fileID: 0}

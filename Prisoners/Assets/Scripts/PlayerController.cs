@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Input.GetButtonDown("AnchorP1"))
                 {
-                    Anchor();
+                    AnchorBig();
                 }
             }
         }
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if(Input.GetButtonDown("AnchorP2"))
                 {
-                    Anchor();
+                    AnchorSmall();
                 }
             }
         }
@@ -101,10 +101,19 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Exit");
     }
 
-    void Anchor()
+    void AnchorSmall()
     {
         isAnchored = true;
         GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x - pivotAnchorOffset, anchorPoint.transform.position.y - pivotAnchorOffset);
+
+        FixedJoint2D anchorJoint = this.gameObject.AddComponent<FixedJoint2D>();
+        anchorJoint.connectedBody = anchorPoint.GetComponent<Rigidbody2D>();
+    }
+
+    void AnchorBig()
+    {
+        isAnchored = true;
+        GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x - 2*pivotAnchorOffset, anchorPoint.transform.position.y - 2*pivotAnchorOffset);
 
         FixedJoint2D anchorJoint = this.gameObject.AddComponent<FixedJoint2D>();
         anchorJoint.connectedBody = anchorPoint.GetComponent<Rigidbody2D>();
