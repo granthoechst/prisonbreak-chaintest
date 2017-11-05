@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (isAnchored)
             {
-                if (Input.GetButtonDown("AnchorP1"))
+                if (Input.GetButtonDown("GrabBig"))
                 {
                     AnchorRelease();
                 }
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
             }
             if (canAnchor)
             {
-                if (Input.GetButtonDown("AnchorP1"))
+                if (Input.GetButtonDown("GrabBig"))
                 {
                     AnchorBig();
                 }
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
 
             if (isAnchored)
             {
-                if(Input.GetButtonDown("AnchorP2"))
+                if(Input.GetButtonDown("GrabSmall"))
                 {
                     AnchorRelease();
                 }       
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
             }
             if(canAnchor)
             {
-                if(Input.GetButtonDown("AnchorP2"))
+                if(Input.GetButtonDown("GrabSmall"))
                 {
                     AnchorSmall();
                 }
