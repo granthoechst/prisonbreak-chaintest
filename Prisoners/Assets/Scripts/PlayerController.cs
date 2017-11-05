@@ -6,16 +6,18 @@ public class PlayerController : MonoBehaviour {
 
     public float topSpeed = 10f;
     public float jumpSpeed = 100f;
+    private float pivotAnchorOffset = 0.625f;
+
     bool facingRight = true;
     bool canAnchor = false;
     bool isAnchored = false;
-
+    bool canGrab = false;
+    bool isGrabbing = false;
     public bool isGrounded = false;
-
-    private float pivotAnchorOffset = 0.625f;
 
     private Transform anchorPoint;
     private Rigidbody2D rb2d;
+    private Transform grabTrigger;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour {
         isGrounded = IsCharacterGrounded();
 
         float move;
+        // BIG GUY PLAYER 1
         if (gameObject.tag == "Player1")
         {
             if (isAnchored)
@@ -48,12 +51,18 @@ public class PlayerController : MonoBehaviour {
                     AnchorBig();
                 }
             }
+            if (canGrab)
+            {
+                if (Input.GetButton("GrabBig"))
+                {
+
+                }
+            }
         }
-            
+        
+        // SMALL GUY PLAYER 2    
         else
         {
-            Debug.Log(isGrounded);
-
             if (isAnchored)
             {
                 if(Input.GetButtonDown("GrabSmall"))
@@ -61,6 +70,15 @@ public class PlayerController : MonoBehaviour {
                     AnchorRelease();
                 }       
             }
+            else if (isGrabbing)
+            {
+                if(!Input.GetButton("GrabSmall"))
+                {
+                    isGrabbing = false;
+                    Destroy(GetComponent<HingeJoint2D>());
+                }
+            }
+            
             move = Input.GetAxis("Horizontal");
             if (Input.GetButtonDown("Jump2") && isGrounded)
             {
@@ -71,6 +89,28 @@ public class PlayerController : MonoBehaviour {
                 if(Input.GetButtonDown("GrabSmall"))
                 {
                     AnchorSmall();
+                }
+            }
+            if(canGrab)
+            {
+                if(Input.GetButton("GrabSmall"))
+                {
+                    isGrabbing = true;
+                    HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
+                    hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
+
+                    if (grabTrigger.gameObject.tag == "Left")
+                    {
+                        rb2d.position = new Vector2(grabTrigger.parent.transform.position.x - grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
+                        hingeJoint.anchor = new Vector2(transform.GetComponent<BoxCollider2D>().size.x, transform.GetComponent<BoxCollider2D>().size.y / 2);
+                        hingeJoint.connectedAnchor = new Vector2(0, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+                    }
+                    else if (grabTrigger.gameObject.tag == "Right")
+                    {
+                        rb2d.position = new Vector2(grabTrigger.parent.transform.position.x + grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
+                        hingeJoint.anchor = new Vector2(0, transform.GetComponent<BoxCollider2D>().size.y / 2);
+                        hingeJoint.connectedAnchor = new Vector2(grabTrigger.parent.GetComponent<BoxCollider2D>().size.x, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+                    }
                 }
             }
         }
@@ -123,15 +163,36 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        canAnchor = true;
-        anchorPoint = other.transform;
-        Debug.Log("Enter");
+        // Draggable
+        if(other.gameObject.layer == 10) // Draggable layer
+        {
+            canGrab = true;
+            other.transform.parent.GetComponentInChildren<MeshRenderer>().enabled = true;
+            grabTrigger = other.transform; // we grab the child trigger that we hit
+        }
+        // Anchor
+        if(other.gameObject.layer == 11) // Mount layer
+        {
+            canAnchor = true;
+            anchorPoint = other.transform;
+            Debug.Log("Enter");
+        }   
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
-        canAnchor = false;
-        anchorPoint = null;
-        Debug.Log("Exit");
+        // Draggable
+        if (other.gameObject.layer == 10) // Draggable layer
+        {
+            canGrab = false;
+            other.transform.parent.GetComponentInChildren<MeshRenderer>().enabled = false;
+        }
+        // Anchor
+        if(other.gameObject.layer == 11) // Mount layer
+        {
+            canAnchor = false;
+            anchorPoint = null;     
+        }         
     }
 
     void AnchorSmall()

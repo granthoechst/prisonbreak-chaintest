@@ -19,9 +19,9 @@ TagManager:
   - 
   - World
   - Chain
-  - 
-  - 
-  - 
+  - Draggable
+  - Mount
+  - Background
   - 
   - 
   - 
@@ -42,9 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Chain
+    uniqueID: 2957699425
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Chain
-    uniqueID: 2957699425
+  - name: Background
+    uniqueID: 3887581501
     locked: 0
