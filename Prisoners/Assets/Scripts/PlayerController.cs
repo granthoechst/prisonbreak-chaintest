@@ -39,6 +39,15 @@ public class PlayerController : MonoBehaviour {
                     AnchorRelease();
                 }
             }
+            else if(isGrabbing)
+            {
+                if (!Input.GetButton("GrabBig"))
+                {
+                    isGrabbing = false;
+                    Destroy(GetComponent<HingeJoint2D>());
+                }
+            }
+
             move = Input.GetAxis("Horizontal2");
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
@@ -55,7 +64,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Input.GetButton("GrabBig"))
                 {
-
+                    Grabbing();
                 }
             }
         }
@@ -95,22 +104,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if(Input.GetButton("GrabSmall"))
                 {
-                    isGrabbing = true;
-                    HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
-                    hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
-
-                    if (grabTrigger.gameObject.tag == "Left")
-                    {
-                        rb2d.position = new Vector2(grabTrigger.parent.transform.position.x - grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
-                        hingeJoint.anchor = new Vector2(transform.GetComponent<BoxCollider2D>().size.x, transform.GetComponent<BoxCollider2D>().size.y / 2);
-                        hingeJoint.connectedAnchor = new Vector2(0, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
-                    }
-                    else if (grabTrigger.gameObject.tag == "Right")
-                    {
-                        rb2d.position = new Vector2(grabTrigger.parent.transform.position.x + grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
-                        hingeJoint.anchor = new Vector2(0, transform.GetComponent<BoxCollider2D>().size.y / 2);
-                        hingeJoint.connectedAnchor = new Vector2(grabTrigger.parent.GetComponent<BoxCollider2D>().size.x, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
-                    }
+                    Grabbing();
                 }
             }
         }
@@ -121,6 +115,26 @@ public class PlayerController : MonoBehaviour {
         //    Flip();
         //else if (move < 0 && facingRight)
         //    Flip();
+    }
+
+    private void Grabbing()
+    {
+        isGrabbing = true;
+        HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
+        hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
+
+        if (grabTrigger.gameObject.tag == "Left")
+        {
+            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x - grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
+            hingeJoint.anchor = new Vector2(transform.GetComponent<BoxCollider2D>().size.x, transform.GetComponent<BoxCollider2D>().size.y / 2);
+            hingeJoint.connectedAnchor = new Vector2(0, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+        }
+        else if (grabTrigger.gameObject.tag == "Right")
+        {
+            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x + grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
+            hingeJoint.anchor = new Vector2(0, transform.GetComponent<BoxCollider2D>().size.y / 2);
+            hingeJoint.connectedAnchor = new Vector2(grabTrigger.parent.GetComponent<BoxCollider2D>().size.x, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+        }
     }
 
     private bool IsCharacterGrounded()
