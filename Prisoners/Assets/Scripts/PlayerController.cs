@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     bool canAnchor = false;
     bool isAnchored = false;
 
+    public bool isGrounded = false;
+
     private float pivotAnchorOffset = 0.625f;
 
     private Transform anchorPoint;
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        isGrounded = IsCharacterGrounded();
+
         float move;
         if (gameObject.tag == "Player1")
         {
@@ -33,7 +37,7 @@ public class PlayerController : MonoBehaviour {
                 }
             }
             move = Input.GetAxis("Horizontal2");
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
             }
@@ -48,7 +52,9 @@ public class PlayerController : MonoBehaviour {
             
         else
         {
-            if(isAnchored)
+            Debug.Log(isGrounded);
+
+            if (isAnchored)
             {
                 if(Input.GetButtonDown("AnchorP2"))
                 {
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour {
                 }       
             }
             move = Input.GetAxis("Horizontal");
-            if (Input.GetButtonDown("Jump2"))
+            if (Input.GetButtonDown("Jump2") && isGrounded)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
             }
@@ -75,6 +81,33 @@ public class PlayerController : MonoBehaviour {
         //    Flip();
         //else if (move < 0 && facingRight)
         //    Flip();
+    }
+
+    private bool IsCharacterGrounded()
+    {
+        Vector3 leftRayStart;
+        Vector3 rightRayStart;
+
+        leftRayStart = gameObject.transform.position;
+        rightRayStart = leftRayStart;
+        rightRayStart.x += 2 * pivotAnchorOffset;
+
+        Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
+        Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
+
+        // Check if below object is part of physical environment layer
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.1f, 1 << LayerMask.NameToLayer("World"));
+        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.1f, 1 << LayerMask.NameToLayer("World"));
+
+        if (hitLeft)
+        {
+            return true;
+        }
+        if (hitRight)
+        {
+            return true;
+        }
+        return false;
     }
 
     void Flip()
