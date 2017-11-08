@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public float topSpeed = 10f;
-    public float jumpSpeed = 100f;
+    // basic movement constants
+    const float bigSpeed = 10f;
+    const float bigJumpSpeed = 20f;
+    const float smallSpeed = 15f;
+    const float smallJumpSpeed = 30f;
+    // swinging
+    const float airSlowdown = 2f;
+    static int swingFlag;
+    // universal speed cap
+    const float maxSpeed = 30f;
+
     private float pivotAnchorOffset = 0.625f;
 
     bool facingRight = true;
@@ -28,18 +37,41 @@ public class PlayerController : MonoBehaviour {
     {
         isGrounded = IsCharacterGrounded();
 
-        float move;
+        float horizontal = 0;
         // BIG GUY PLAYER 1
         if (gameObject.tag == "Player1")
         {
+            // basic movement (move, jump, crouch, swing)
+            horizontal = Input.GetAxis("Horizontal1");
+            // sketchy normalization for swinging only
+            float normalized = Mathf.Abs(horizontal) / horizontal;
+            if (isGrounded && horizontal != 0)
+            {
+                rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
+                swingFlag = 0;
+            }
+            else if (Input.GetButtonDown("Horizontal1") && horizontal != 0 && (int)(normalized * 2) != swingFlag)
+            {
+                rb2d.velocity = new Vector2(normalized * bigSpeed, rb2d.velocity.y);
+                swingFlag = (int)(normalized * 2);
+            }
+            if (Input.GetButtonDown("Up1") && isGrounded)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, bigJumpSpeed);
+            }
+            if (Input.GetButton("Crouch1") && isGrounded)
+            {
+                rb2d.velocity = new Vector2(0, 0);
+            }
+            // grab actions
             if (isAnchored)
             {
-                if (Input.GetButtonDown("GrabBig"))
+                if (Input.GetButtonUp("GrabBig"))
                 {
                     AnchorRelease();
                 }
             }
-            else if(isGrabbing)
+            else if (isGrabbing)
             {
                 if (!Input.GetButton("GrabBig"))
                 {
@@ -47,15 +79,9 @@ public class PlayerController : MonoBehaviour {
                     Destroy(GetComponent<HingeJoint2D>());
                 }
             }
-
-            move = Input.GetAxis("Horizontal2");
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
-            }
             if (canAnchor)
             {
-                if (Input.GetButtonDown("GrabBig"))
+                if (Input.GetButton("GrabBig"))
                 {
                     AnchorBig();
                 }
@@ -72,28 +98,45 @@ public class PlayerController : MonoBehaviour {
         // SMALL GUY PLAYER 2    
         else
         {
+            // basic movement (move, jump, crouch, swing)
+            horizontal = Input.GetAxis("Horizontal2");
+            // sketchy normalization for swinging only
+            float normalized = Mathf.Abs(horizontal) / horizontal;
+            if (isGrounded && horizontal != 0)
+            {
+                rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
+                swingFlag = 0;
+            }
+            else if (Input.GetButtonDown("Horizontal2") && horizontal != 0 && (int)(normalized * 2) != swingFlag)
+            {
+                rb2d.velocity = new Vector2(normalized * smallSpeed, rb2d.velocity.y);
+                swingFlag = (int)(normalized * 2);
+            }
+            if (Input.GetButtonDown("Up2") && isGrounded)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, smallJumpSpeed);
+            }
+            if (Input.GetButton("Crouch2") && isGrounded)
+            {
+                rb2d.velocity = new Vector2(0, 0);
+            }
+            // grab actions
             if (isAnchored)
             {
-                if(Input.GetButtonDown("GrabSmall"))
+                if (Input.GetButtonUp("GrabSmall"))
                 {
                     AnchorRelease();
-                }       
+                }
             }
             else if (isGrabbing)
             {
-                if(!Input.GetButton("GrabSmall"))
+                if (!Input.GetButton("GrabSmall"))
                 {
                     isGrabbing = false;
                     Destroy(GetComponent<HingeJoint2D>());
                 }
             }
-            
-            move = Input.GetAxis("Horizontal");
-            if (Input.GetButtonDown("Jump2") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
-            }
-            if(canAnchor)
+            if (canAnchor)
             {
                 if(Input.GetButtonDown("GrabSmall"))
                 {
@@ -108,9 +151,15 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
-            
-        rb2d.velocity = new Vector2(move * topSpeed, rb2d.velocity.y);
-
+        // implement universal speed cap
+        if (rb2d.velocity.x > maxSpeed)
+        {
+            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
+        }
+        if (rb2d.velocity.y > maxSpeed)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, maxSpeed);
+        }
         //if (move > 0 && !facingRight)
         //    Flip();
         //else if (move < 0 && facingRight)
@@ -149,19 +198,13 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
         Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
 
+        float rayLength = GetComponent<BoxCollider2D>().size.y / 2 + 0.1f;
+        //float rayLength = GetComponent<BoxCollider2D>().size.y / 2 + 0.1f;
         // Check if below object is part of physical environment layer
-        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.1f, 1 << LayerMask.NameToLayer("World"));
-        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.1f, 1 << LayerMask.NameToLayer("World"));
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
+        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
 
-        if (hitLeft)
-        {
-            return true;
-        }
-        if (hitRight)
-        {
-            return true;
-        }
-        return false;
+        return hitLeft || hitRight;
     }
 
     void Flip()
