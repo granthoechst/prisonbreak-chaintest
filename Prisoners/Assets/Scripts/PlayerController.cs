@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour {
     const float bigJumpSpeed = 20f;
     const float smallSpeed = 15f;
     const float smallJumpSpeed = 30f;
-    // swinging
-    const float airSlowdown = 2f;
+    // swinging - allow swinging without gravity defying
     static int swingFlag;
     // universal speed cap
     const float maxSpeed = 30f;
@@ -45,6 +44,10 @@ public class PlayerController : MonoBehaviour {
             horizontal = Input.GetAxis("Horizontal1");
             // sketchy normalization for swinging only
             float normalized = Mathf.Abs(horizontal) / horizontal;
+            if (isGrounded)
+            {
+                swingFlag = 0;
+            }
             if (isGrounded && horizontal != 0)
             {
                 rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
@@ -96,12 +99,16 @@ public class PlayerController : MonoBehaviour {
         }
         
         // SMALL GUY PLAYER 2    
-        else
+        else if (gameObject.tag == "Player2")
         {
             // basic movement (move, jump, crouch, swing)
             horizontal = Input.GetAxis("Horizontal2");
             // sketchy normalization for swinging only
             float normalized = Mathf.Abs(horizontal) / horizontal;
+            if (isGrounded)
+            {
+                swingFlag = 0;
+            }
             if (isGrounded && horizontal != 0)
             {
                 rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
