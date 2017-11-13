@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour {
     const float smallSpeed = 15f;
     const float smallJumpSpeed = 30f;
     // swinging - allow swinging without gravity defying
-    static int swingFlag;
+    static int swingFlagBig;
+    static int swingFlagSmall;
     // universal speed cap
     const float maxSpeed = 30f;
 
@@ -46,17 +47,16 @@ public class PlayerController : MonoBehaviour {
             float normalized = Mathf.Abs(horizontal) / horizontal;
             if (isGrounded)
             {
-                swingFlag = 0;
+                if (horizontal != 0)
+                {
+                    rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
+                }
+                swingFlagBig = 0;
             }
-            if (isGrounded && horizontal != 0)
-            {
-                rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
-                swingFlag = 0;
-            }
-            else if (Input.GetButtonDown("Horizontal1") && horizontal != 0 && (int)(normalized * 2) != swingFlag)
+            else if (Input.GetButton("Horizontal1") && horizontal != 0 && (int)(normalized * 2) != swingFlagBig)
             {
                 rb2d.velocity = new Vector2(normalized * bigSpeed, rb2d.velocity.y);
-                swingFlag = (int)(normalized * 2);
+                swingFlagBig = (int)(normalized * 2);
             }
             if (Input.GetButtonDown("Up1") && isGrounded)
             {
@@ -107,17 +107,16 @@ public class PlayerController : MonoBehaviour {
             float normalized = Mathf.Abs(horizontal) / horizontal;
             if (isGrounded)
             {
-                swingFlag = 0;
+                if (horizontal != 0)
+                {
+                    rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
+                }
+                swingFlagSmall = 0;
             }
-            if (isGrounded && horizontal != 0)
-            {
-                rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
-                swingFlag = 0;
-            }
-            else if (Input.GetButtonDown("Horizontal2") && horizontal != 0 && (int)(normalized * 2) != swingFlag)
+            else if (Input.GetButton("Horizontal2") && horizontal != 0 && (int)(normalized * 2) != swingFlagSmall)
             {
                 rb2d.velocity = new Vector2(normalized * smallSpeed, rb2d.velocity.y);
-                swingFlag = (int)(normalized * 2);
+                swingFlagSmall = (int)(normalized * 2);
             }
             if (Input.GetButtonDown("Up2") && isGrounded)
             {
