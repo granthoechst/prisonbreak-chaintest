@@ -14,24 +14,28 @@ public class Lift : MonoBehaviour {
 			if (!lifting) {
 
 				Physics2D.queriesStartInColliders = false;
-				hit = Physics2D.Raycast (transform.position, Vector2.right * transform.localScale.x, distance);
+				hit = Physics2D.Raycast (transform.position + new Vector3(0,1,0), Vector2.right, distance, 1 << LayerMask.NameToLayer("Default"));
 				if (hit.collider != null && hit.collider.gameObject.tag == "Player2") {
 					lifting = true;
 
 				}
 			}
-			else {
-				lifting = false;
-			}
 		}
 		if (lifting) {
-			hit.collider.gameObject.transform.position = holdPoint.position;
+			hit.collider.attachedRigidbody.position = holdPoint.position;
+			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = true;
+		}
+		if (lifting && Input.GetButton ("Up2")) 
+		{
+			lifting = false;
+			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = false;
+			hit.collider.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0,30);
 		}
 	}
 
 	void OnDrawGizmos(){
 		Gizmos.color = Color.green;
 
-		Gizmos.DrawLine (transform.position, transform.position + Vector3.right * transform.localScale.x*distance);
+		Gizmos.DrawLine (transform.position + new Vector3(0,1,0), transform.position + new Vector3(0,1,0) + Vector3.right * distance);
 	}
 }
