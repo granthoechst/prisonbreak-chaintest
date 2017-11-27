@@ -122,7 +122,15 @@ public class PlayerController : MonoBehaviour {
                 if (!Input.GetButton("GrabBig"))
                 {
                     isGrabbing = false;
-                    Destroy(GetComponent<HingeJoint2D>());
+                    // this seems hella clumsy but idk how else to do this
+                    foreach (HingeJoint2D joint in GetComponents<HingeJoint2D>())
+                    {
+                        if (joint.connectedBody.transform.parent == null || 
+                            joint.connectedBody.transform.parent.tag != "Chain")
+                        {
+                            Destroy(joint);
+                        }
+                    }
                 }
             }
             if (canAnchor)
@@ -208,7 +216,15 @@ public class PlayerController : MonoBehaviour {
                 if (!Input.GetButton("GrabSmall"))
                 {
                     isGrabbing = false;
-                    Destroy(GetComponent<HingeJoint2D>());
+                    // this seems hella clumsy but idk how else to do this
+                    foreach (HingeJoint2D joint in GetComponents<HingeJoint2D>())
+                    {
+                        if (joint.connectedBody.transform.parent == null ||
+                            joint.connectedBody.transform.parent.tag != "Chain")
+                        {
+                            Destroy(joint);
+                        }
+                    }
                 }
             }
             if (canAnchor)
