@@ -225,6 +225,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CreateChain.cs" />
     <Compile Include="Assets\Scripts\IgnoreCollision.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>

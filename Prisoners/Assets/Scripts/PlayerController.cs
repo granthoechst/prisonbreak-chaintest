@@ -6,13 +6,19 @@ public class PlayerController : MonoBehaviour {
 
     // basic movement constants
     const float bigSpeed = 10f;
-    const float bigJumpSpeed = 20f;
-    const float smallSpeed = 15f;
+    const float bigJumpSpeed = 30f;
+    const float smallSpeed = 14f;
     const float smallJumpSpeed = 30f;
     // swinging - allow swinging without gravity defying
     static int swingFlagBig;
     static int swingFlagSmall;
-    // universal speed cap
+    // climbing chain - int records which link climber is at
+    static float climbLinkBig = 0;
+    static float climbLinkSmall = 0;
+    const float climbSpeed = 0.01f;
+    private int numLinks = 0; // number of links in the chain, populated based on create chain script
+
+    // universal speed cap - (soft)
     const float maxSpeed = 30f;
 
     private float pivotAnchorOffset = 0.625f;
@@ -26,11 +32,21 @@ public class PlayerController : MonoBehaviour {
 
     private Transform anchorPoint;
     private Rigidbody2D rb2d;
+    private GameObject chain;
+    private HingeJoint2D climbJoint;
     private Transform grabTrigger;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        chain = GameObject.Find("Chain");
+        numLinks = chain.transform.childCount;
+        // initialize climbing joint
+        climbJoint = gameObject.AddComponent<HingeJoint2D>();
+        climbJoint.connectedBody = chain.transform.GetChild(getLinkIndex(0)).gameObject.GetComponent<Rigidbody2D>();
+        climbJoint.autoConfigureConnectedAnchor = false;
+        climbJoint.connectedAnchor = new Vector2(2, 0);
+        climbJoint.anchor = new Vector2(0.5f, 0.9f);
     }
 
     private void FixedUpdate()
@@ -41,30 +57,57 @@ public class PlayerController : MonoBehaviour {
         // BIG GUY PLAYER 1
         if (gameObject.tag == "Player1")
         {
-            // basic movement (move, jump, crouch, swing)
+            // Movement (move, jump, crouch, swing)
             horizontal = Input.GetAxis("Horizontal1");
-            // sketchy normalization for swinging only
-            float normalized = Mathf.Abs(horizontal) / horizontal;
-            if (isGrounded)
+            if (isGrounded) // on the ground - side to side, jump, crouch, reset flags
             {
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
                 }
+                if (Input.GetButtonDown("Up1") && isGrounded)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, bigJumpSpeed);
+                }
+                if (Input.GetButton("Crouch1") && isGrounded)
+                {
+                    rb2d.velocity = new Vector2(0, 0);
+                }
+                // reset swinging flags, disable climbing
+                climbJoint.enabled = false;
                 swingFlagBig = 0;
             }
-            else if (Input.GetButton("Horizontal1") && horizontal != 0 && (int)(normalized * 2) != swingFlagBig)
+            else // In the air - swinging, climbing 
             {
-                rb2d.velocity = new Vector2(normalized * bigSpeed, rb2d.velocity.y);
-                swingFlagBig = (int)(normalized * 2);
-            }
-            if (Input.GetButtonDown("Up1") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, bigJumpSpeed);
-            }
-            if (Input.GetButton("Crouch1") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(0, 0);
+                // sketchy normalization for swinging only
+                float normalized = Mathf.Abs(horizontal) / horizontal;
+                if (Input.GetButton("Horizontal1") && horizontal != 0 && (int)(normalized * 2) != swingFlagBig)
+                {
+                    rb2d.velocity = new Vector2(normalized * smallSpeed, rb2d.velocity.y);
+                    swingFlagBig = (int)(normalized * 2);
+                }
+                // chain climbing - update climblink based on control
+                if (Input.GetButton("Up1"))
+                {
+                    if (climbLinkBig < numLinks)
+                    {
+                        climbLinkBig += climbSpeed;
+                    }
+                }
+                else
+                {
+                    climbLinkBig = 0;
+                }
+                // rebuild the hingejoint according to climblink
+                if (climbLinkBig == 0)
+                {
+                    climbJoint.enabled = false;
+                }
+                else
+                {
+                    climbJoint.enabled = true;
+                    climbJoint.connectedBody = chain.transform.GetChild(getLinkIndex(climbLinkBig)).gameObject.GetComponent<Rigidbody2D>();
+                }
             }
             // grab actions
             if (isAnchored)
@@ -101,32 +144,58 @@ public class PlayerController : MonoBehaviour {
         // SMALL GUY PLAYER 2    
         else if (gameObject.tag == "Player2")
         {
-            // basic movement (move, jump, crouch, swing)
+            // Movement (move, jump, crouch, swing)
             horizontal = Input.GetAxis("Horizontal2");
-            // sketchy normalization for swinging only
-            float normalized = Mathf.Abs(horizontal) / horizontal;
-            if (isGrounded)
+            if (isGrounded) // on the ground - side to side, jump, crouch, reset flags
             {
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
                 }
+                if (Input.GetButtonDown("Up2") && isGrounded)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, smallJumpSpeed);
+                }
+                if (Input.GetButton("Crouch2") && isGrounded)
+                {
+                    rb2d.velocity = new Vector2(0, 0);
+                }
+                // reset swinging flags, disable climbing
+                climbJoint.enabled = false;
                 swingFlagSmall = 0;
             }
-            else if (Input.GetButton("Horizontal2") && horizontal != 0 && (int)(normalized * 2) != swingFlagSmall)
+            else // In the air - swinging, climbing 
             {
-                rb2d.velocity = new Vector2(normalized * smallSpeed, rb2d.velocity.y);
-                swingFlagSmall = (int)(normalized * 2);
+                // sketchy normalization for swinging only
+                float normalized = Mathf.Abs(horizontal) / horizontal;
+                if (Input.GetButton("Horizontal2") && horizontal != 0 && (int)(normalized * 2) != swingFlagSmall)
+                {
+                    rb2d.velocity = new Vector2(normalized * smallSpeed, rb2d.velocity.y);
+                    swingFlagSmall = (int)(normalized * 2);
+                }
+                // chain climbing - update climblink based on control
+                if (Input.GetButton("Up2"))
+                {
+                    if (climbLinkSmall < numLinks)
+                    {
+                        climbLinkSmall += climbSpeed;
+                    }
+                } else
+                {
+                    climbLinkSmall = 0;
+                }
+                // rebuild the hingejoint according to climblink
+                if (climbLinkSmall == 0)
+                {
+                    climbJoint.enabled = false;
+                } else
+                {
+                    climbJoint.enabled = true;
+                    climbJoint.connectedBody = chain.transform.GetChild(getLinkIndex(climbLinkSmall)).gameObject.GetComponent<Rigidbody2D>();
+                }                
             }
-            if (Input.GetButtonDown("Up2") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, smallJumpSpeed);
-            }
-            if (Input.GetButton("Crouch2") && isGrounded)
-            {
-                rb2d.velocity = new Vector2(0, 0);
-            }
-            // grab actions
+
+            // Grab actions
             if (isAnchored)
             {
                 if (Input.GetButtonUp("GrabSmall"))
@@ -170,6 +239,17 @@ public class PlayerController : MonoBehaviour {
         //    Flip();
         //else if (move < 0 && facingRight)
         //    Flip();
+    }
+
+    private int getLinkIndex(float dist)
+    {
+        if (gameObject.tag == "Player2")
+        {
+            return (int)(numLinks - 1 - dist);
+        } else
+        {
+            return (int)dist;
+        }
     }
 
     private void Grabbing()
