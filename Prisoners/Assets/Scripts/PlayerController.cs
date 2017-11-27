@@ -209,8 +209,10 @@ public class PlayerController : MonoBehaviour {
         // Check if below object is part of physical environment layer
         RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
         RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
+        RaycastHit2D hitBigL = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
+        RaycastHit2D hitBigR = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
 
-        return hitLeft || hitRight;
+        return hitLeft || hitRight || hitBigL || hitBigR;
     }
 
     void Flip()
