@@ -65,11 +65,11 @@ public class PlayerController : MonoBehaviour {
                 {
                     rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
                 }
-                if (Input.GetButtonDown("Up1") && isGrounded)
+                if (Input.GetButtonDown("Up1"))
                 {
                     rb2d.velocity = new Vector2(rb2d.velocity.x, bigJumpSpeed);
                 }
-                if (Input.GetButton("Crouch1") && isGrounded)
+                if (Input.GetButton("Crouch1"))
                 {
                     rb2d.velocity = new Vector2(0, 0);
                 }
@@ -94,12 +94,15 @@ public class PlayerController : MonoBehaviour {
                         climbLinkBig += climbSpeed;
                     }
                 }
-                else
+                else if (Input.GetButton("GrabBig"))
                 {
-                    climbLinkBig = 0;
+                    if (climbLinkBig > 0)
+                    {
+                        climbLinkBig -= climbSpeed;
+                    }
                 }
                 // rebuild the hingejoint according to climblink
-                if (climbLinkBig == 0)
+                if (climbLinkBig <= 0)
                 {
                     climbJoint.enabled = false;
                 }
@@ -160,11 +163,11 @@ public class PlayerController : MonoBehaviour {
                 {
                     rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
                 }
-                if (Input.GetButtonDown("Up2") && isGrounded)
+                if (Input.GetButtonDown("Up2"))
                 {
                     rb2d.velocity = new Vector2(rb2d.velocity.x, smallJumpSpeed);
                 }
-                if (Input.GetButton("Crouch2") && isGrounded)
+                if (Input.GetButton("Crouch2"))
                 {
                     rb2d.velocity = new Vector2(0, 0);
                 }
@@ -188,12 +191,16 @@ public class PlayerController : MonoBehaviour {
                     {
                         climbLinkSmall += climbSpeed;
                     }
-                } else
+                }
+                else if (Input.GetButton("GrabSmall"))
                 {
-                    climbLinkSmall = 0;
+                    if (climbLinkSmall > 0)
+                    {
+                        climbLinkSmall -= climbSpeed;
+                    }
                 }
                 // rebuild the hingejoint according to climblink
-                if (climbLinkSmall == 0)
+                if (climbLinkSmall <= 0)
                 {
                     climbJoint.enabled = false;
                 } else
@@ -276,15 +283,15 @@ public class PlayerController : MonoBehaviour {
 
         if (grabTrigger.gameObject.tag == "Left")
         {
-            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x - grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
-            hingeJoint.anchor = new Vector2(transform.GetComponent<BoxCollider2D>().size.x, transform.GetComponent<BoxCollider2D>().size.y / 2);
-            hingeJoint.connectedAnchor = new Vector2(0, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x - grabTrigger.parent.transform.GetComponent<CapsuleCollider2D>().size.x, this.transform.position.y);
+            hingeJoint.anchor = new Vector2(transform.GetComponent<CapsuleCollider2D>().size.x, transform.GetComponent<CapsuleCollider2D>().size.y / 2);
+            hingeJoint.connectedAnchor = new Vector2(0, grabTrigger.parent.GetComponent<CapsuleCollider2D>().size.y / 2);
         }
         else if (grabTrigger.gameObject.tag == "Right")
         {
-            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x + grabTrigger.parent.transform.GetComponent<BoxCollider2D>().size.x, this.transform.position.y);
-            hingeJoint.anchor = new Vector2(0, transform.GetComponent<BoxCollider2D>().size.y / 2);
-            hingeJoint.connectedAnchor = new Vector2(grabTrigger.parent.GetComponent<BoxCollider2D>().size.x, grabTrigger.parent.GetComponent<BoxCollider2D>().size.y / 2);
+            rb2d.position = new Vector2(grabTrigger.parent.transform.position.x + grabTrigger.parent.transform.GetComponent<CapsuleCollider2D>().size.x, this.transform.position.y);
+            hingeJoint.anchor = new Vector2(0, transform.GetComponent<CapsuleCollider2D>().size.y / 2);
+            hingeJoint.connectedAnchor = new Vector2(grabTrigger.parent.GetComponent<CapsuleCollider2D>().size.x, grabTrigger.parent.GetComponent<CapsuleCollider2D>().size.y / 2);
         }
     }
 
@@ -300,8 +307,8 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
         Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
 
-        float rayLength = GetComponent<BoxCollider2D>().size.y / 2 + 0.1f;
-        //float rayLength = GetComponent<BoxCollider2D>().size.y / 2 + 0.1f;
+        float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
+        //float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         // Check if below object is part of physical environment layer
         RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
         RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
