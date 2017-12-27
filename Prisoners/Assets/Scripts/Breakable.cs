@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Breakable : MonoBehaviour {
 
-    private float collisionForce;
-
-    void Start()
-    {
-        collisionForce = 2000f;
-    }
+    public float collisionForce = 20000f;
 
 	void OnCollisionEnter2D(Collision2D other)
     {
