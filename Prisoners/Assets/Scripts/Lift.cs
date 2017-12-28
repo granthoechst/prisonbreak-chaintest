@@ -5,7 +5,7 @@ using UnityEngine;
 public class Lift : MonoBehaviour {
 
 	public bool lifting;
-	public float distance = 2f;
+	public float distance = 4f;
 	RaycastHit2D hit;
 	public Transform holdPoint;
 

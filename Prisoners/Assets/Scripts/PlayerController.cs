@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 // reset swinging flags, disable climbing
                 climbJoint.enabled = false;
+                climbLinkBig = 0;
                 swingFlagBig = 0;
             }
             else // In the air - swinging, climbing 
@@ -173,6 +174,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 // reset swinging flags, disable climbing
                 climbJoint.enabled = false;
+                climbLinkSmall = 0;
                 swingFlagSmall = 0;
             }
             else // In the air - swinging, climbing 
@@ -313,7 +315,17 @@ public class PlayerController : MonoBehaviour {
         RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
         RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
 
-        return hitLeft || hitRight;
+        // not sure why, but without this condition the extra raycasts say Big Guy is always grounded, until he uses lifting
+        // the purpose of this was to tell the game small guy is grounded while lifted, so this should be fine
+        bool hitBig = false;
+        if (gameObject.tag == "Player2")
+        {
+            RaycastHit2D hitBigL = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
+            RaycastHit2D hitBigR = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
+            hitBig = (hitBigL.collider != null) || (hitBigR.collider != null);
+        }
+
+        return hitLeft || hitRight || hitBig;
     }
 
     void Flip()
