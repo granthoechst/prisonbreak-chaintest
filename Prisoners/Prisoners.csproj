@@ -225,8 +225,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CreateChain.cs" />
+    <Compile Include="Assets\LeverMovement.cs" />
+    <Compile Include="Assets\ResetPos.cs" />
     <Compile Include="Assets\Scripts\Breakable.cs" />
+    <Compile Include="Assets\Scripts\CreateChain.cs" />
     <Compile Include="Assets\Scripts\Lift.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
