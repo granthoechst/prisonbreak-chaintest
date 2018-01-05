@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     // climbing chain - int records which link climber is at
     static float climbLinkBig = 0;
     static float climbLinkSmall = 0;
-    const float climbSpeed = 0.01f;
+    const float climbSpeed = 0.007f;
     private int numLinks = 0; // number of links in the chain, populated based on create chain script
 
     // universal speed cap - (soft)
@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour {
                     swingFlagBig = (int)(normalized * 2);
                 }
                 // chain climbing - update climblink based on control
+                int oldClimbLink = (int)climbLinkBig;
                 if (Input.GetButton("Up1"))
                 {
                     if (climbLinkBig < numLinks)
@@ -107,10 +108,11 @@ public class PlayerController : MonoBehaviour {
                 {
                     climbJoint.enabled = false;
                 }
-                else
+                else if (oldClimbLink != (int)climbLinkBig)
                 {
                     climbJoint.enabled = true;
-                    climbJoint.connectedBody = chain.transform.GetChild(getLinkIndex(climbLinkBig)).gameObject.GetComponent<Rigidbody2D>();
+                    Rigidbody2D nextLink = chain.transform.GetChild(getLinkIndex(climbLinkBig)).gameObject.GetComponent<Rigidbody2D>();
+                    climbJoint.connectedBody = nextLink;
                 }
             }
             // grab actions
@@ -187,6 +189,7 @@ public class PlayerController : MonoBehaviour {
                     swingFlagSmall = (int)(normalized * 2);
                 }
                 // chain climbing - update climblink based on control
+                int oldClimbLink = (int)climbLinkSmall;
                 if (Input.GetButton("Up2"))
                 {
                     if (climbLinkSmall < numLinks)
@@ -205,10 +208,11 @@ public class PlayerController : MonoBehaviour {
                 if (climbLinkSmall <= 0)
                 {
                     climbJoint.enabled = false;
-                } else
+                } else if (oldClimbLink != (int)climbLinkSmall)
                 {
                     climbJoint.enabled = true;
-                    climbJoint.connectedBody = chain.transform.GetChild(getLinkIndex(climbLinkSmall)).gameObject.GetComponent<Rigidbody2D>();
+                    Rigidbody2D nextLink = chain.transform.GetChild(getLinkIndex(climbLinkSmall)).gameObject.GetComponent<Rigidbody2D>();
+                    climbJoint.connectedBody = nextLink;
                 }                
             }
 
@@ -315,17 +319,21 @@ public class PlayerController : MonoBehaviour {
         RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
         RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
 
-        // not sure why, but without this condition the extra raycasts say Big Guy is always grounded, until he uses lifting
-        // the purpose of this was to tell the game small guy is grounded while lifted, so this should be fine
-        bool hitBig = false;
+        // the purpose of this was to tell the game small guy is grounded while lifted by the big one
+        bool lifted = false;
         if (gameObject.tag == "Player2")
         {
             RaycastHit2D hitBigL = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
             RaycastHit2D hitBigR = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
-            hitBig = (hitBigL.collider != null) || (hitBigR.collider != null);
+            lifted = (hitBigL.collider != null) && (hitBigR.collider != null);
+            // checks that it is actually lifting, not just overlapping, by checking that the players have the same velocity
+            if (lifted)
+            {
+                lifted = rb2d.velocity == hitBigL.collider.gameObject.GetComponent<Rigidbody2D>().velocity;
+            }
         }
 
-        return hitLeft || hitRight || hitBig;
+        return hitLeft || hitRight || lifted;
     }
 
     void Flip()
