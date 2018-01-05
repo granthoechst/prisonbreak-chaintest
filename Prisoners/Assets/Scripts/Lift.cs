@@ -29,7 +29,7 @@ public class Lift : MonoBehaviour {
 		{
 			lifting = false;
 			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = false;
-			hit.collider.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0,30);
+			hit.collider.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x,30);
 		}
 	}
 

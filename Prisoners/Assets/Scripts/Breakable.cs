@@ -5,7 +5,6 @@ using UnityEngine;
 public class Breakable : MonoBehaviour {
 
     public float collisionForce = 20000f;
-
 	void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Velocity: " + other.relativeVelocity.magnitude);
