@@ -5,12 +5,14 @@ using UnityEngine;
 public class CreateChain : MonoBehaviour {
 
     // number of links in chain
-    private int numLinks = 14;
+    private int numLinks = 15;
     // distance gap between links in chain
-    private float linkGap = .75f;
+    private float linkGap = .60f;
 
-    // link prefab
+    // link prefabs
     public GameObject linkPrefab;
+    public GameObject linkPrefab1;
+    public GameObject linkPrefab2;
 
     // players to connect
     public GameObject player1;
@@ -33,7 +35,7 @@ public class CreateChain : MonoBehaviour {
         Vector2 linkPos = player1Pos;
 
         // attach initial link to player 1 and add to list
-        thisLink = (GameObject)Instantiate(linkPrefab, linkPos, Quaternion.identity);
+        thisLink = (GameObject)Instantiate(linkPrefab1, linkPos, Quaternion.identity);
         thisLink.GetComponent<HingeJoint2D>().connectedBody = player1.GetComponent<Rigidbody2D>();
         links.Add(thisLink);
         // move it to the desired position on the player
@@ -49,7 +51,14 @@ public class CreateChain : MonoBehaviour {
             Vector2 lastPos = lastLink.GetComponent<Rigidbody2D>().position;
             //linkPos = Vector2.MoveTowards(lastPos, player2Pos, linkGap);
             linkPos = new Vector2(lastPos.x + linkGap, lastPos.y);
-            thisLink = (GameObject)Instantiate(linkPrefab, linkPos, Quaternion.identity);
+            if (i%2 == 0)
+            {
+                thisLink = (GameObject)Instantiate(linkPrefab1, linkPos, Quaternion.identity);
+            } else
+            {
+                thisLink = (GameObject)Instantiate(linkPrefab2, linkPos, Quaternion.identity);
+                thisLink.transform.SetSiblingIndex(0);
+            }
             // connect it via hinge join to the previous link
             thisLink.GetComponent<HingeJoint2D>().connectedBody = lastLink.GetComponent<Rigidbody2D>();
             links.Add(thisLink);

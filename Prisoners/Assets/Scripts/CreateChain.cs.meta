@@ -1,11 +1,21 @@
 fileFormatVersion: 2
 guid: a8e6851074f120249916ee92d7b4aa48
-timeCreated: 1511632048
+timeCreated: 1515372729
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - linkPrefab: {fileID: 1920266213622976, guid: efe618ecb94c0f94f98239607ea1ae6a,
+      type: 2}
+  - linkPrefab1: {fileID: 1920266213622976, guid: efe618ecb94c0f94f98239607ea1ae6a,
+      type: 2}
+  - linkPrefab2: {fileID: 1923171984140934, guid: 8d01c8cef3d3061458cccf12392a418a,
+      type: 2}
+  - player1: {instanceID: 0}
+  - player2: {instanceID: 0}
+  - thisLink: {instanceID: 0}
+  - lastLink: {instanceID: 0}
   executionOrder: 100
   icon: {instanceID: 0}
   userData: 

@@ -45,6 +45,9 @@ TagManager:
   - name: Chain
     uniqueID: 2957699425
     locked: 0
+  - name: Chain Front
+    uniqueID: 3644071645
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

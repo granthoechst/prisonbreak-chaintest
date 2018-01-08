@@ -527,8 +527,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 91459411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.37, y: -0.53, z: 0}
-  m_LocalScale: {x: 1.9592853, y: 1.9592855, z: 1.9592855}
+  m_LocalPosition: {x: -11.037, y: -0.53, z: 0}
+  m_LocalScale: {x: 0.89316046, y: 1.9592855, z: 1.9592855}
   m_Children:
   - {fileID: 691848456}
   - {fileID: 1202290728}
@@ -1228,8 +1228,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 452413806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.741, y: -2.678, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.271, y: -2.678, z: 0}
+  m_LocalScale: {x: 0.62371826, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 604850912}
   m_RootOrder: 1
@@ -2210,6 +2210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkPrefab: {fileID: 1920266213622976, guid: efe618ecb94c0f94f98239607ea1ae6a, type: 2}
+  linkPrefab1: {fileID: 1923171984140934, guid: 8d01c8cef3d3061458cccf12392a418a,
+    type: 2}
+  linkPrefab2: {fileID: 1802695149871064, guid: 928c4dd076c305a41bd38e2005197f40,
+    type: 2}
   player1: {fileID: 0}
   player2: {fileID: 0}
   links: []
