@@ -267,13 +267,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Prisoners.CSharp.Plugins.csproj">
-      <Project>{BC5A8593-C80C-E63E-3D9E-4B9AD875096E}</Project>
-      <Name>Prisoners.CSharp.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="Prisoners.CSharp.csproj">
       <Project>{11A358EA-89BB-52A5-D0D0-BF6667F825A1}</Project>
       <Name>Prisoners.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="Prisoners.CSharp.Plugins.csproj">
+      <Project>{BC5A8593-C80C-E63E-3D9E-4B9AD875096E}</Project>
+      <Name>Prisoners.CSharp.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
