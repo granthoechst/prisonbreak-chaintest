@@ -5,9 +5,9 @@ using UnityEngine;
 public class CreateChain : MonoBehaviour {
 
     // number of links in chain
-    private int numLinks = 15;
+    private int numLinks = 16;
     // distance gap between links in chain
-    private float linkGap = .60f;
+    private float linkGap = .55f;
 
     // link prefabs
     public GameObject linkPrefab;

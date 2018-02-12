@@ -255,14 +255,14 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
-        // implement universal speed cap
+        // implement soft universal speed cap
         if (rb2d.velocity.x > maxSpeed)
         {
-            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
         }
         if (rb2d.velocity.y > maxSpeed)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, maxSpeed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         }
         //if (move > 0 && !facingRight)
         //    Flip();
