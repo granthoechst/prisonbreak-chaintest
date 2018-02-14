@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-﻿<Properties StartupItem="Prisoners.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
-=======
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Lift.cs">
     <Files>
       <File FileName="Assets/Scripts/Lift.cs" Line="28" Column="34" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="45" Column="40" />
->>>>>>> 30c9006fc83171f7aa38ffc4c7dbdffd86992ade
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

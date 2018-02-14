@@ -226,11 +226,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\LeverMovement.cs" />
+    <Compile Include="Assets\LoadLevel.cs" />
     <Compile Include="Assets\ResetPos.cs" />
     <Compile Include="Assets\Scripts\Breakable.cs" />
     <Compile Include="Assets\Scripts\CreateChain.cs" />
     <Compile Include="Assets\Scripts\Lift.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\SceneTransition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

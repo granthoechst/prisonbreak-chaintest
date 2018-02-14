@@ -8,6 +8,7 @@ TagManager:
   - Player2
   - Chain
   - Hook
+  - Transition
   layers:
   - Default
   - TransparentFX
