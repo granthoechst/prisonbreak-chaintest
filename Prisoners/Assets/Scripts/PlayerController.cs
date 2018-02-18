@@ -316,8 +316,8 @@ public class PlayerController : MonoBehaviour {
         float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         //float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         // Check if below object is part of physical environment layer
-        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
-        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World"));
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
+        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
 
         // the purpose of this was to tell the game small guy is grounded while lifted by the big one
         bool lifted = false;
