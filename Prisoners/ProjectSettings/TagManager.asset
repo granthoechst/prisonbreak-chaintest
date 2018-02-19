@@ -10,6 +10,7 @@ TagManager:
   - Hook
   - Transition
   - CheckpointFlag
+  - Death
   layers:
   - Default
   - TransparentFX
