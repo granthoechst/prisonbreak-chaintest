@@ -9,6 +9,7 @@ TagManager:
   - Chain
   - Hook
   - Transition
+  - CheckpointFlag
   layers:
   - Default
   - TransparentFX
