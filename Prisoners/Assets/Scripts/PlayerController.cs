@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public GameObject grabbed;
+
     // basic movement constants
     const float bigSpeed = 10f;
     const float bigJumpSpeed = 30f;
@@ -286,6 +288,7 @@ public class PlayerController : MonoBehaviour {
         isGrabbing = true;
         HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
         hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
+		grabbed = grabTrigger.parent.gameObject;
 
         if (grabTrigger.gameObject.tag == "Left")
         {
