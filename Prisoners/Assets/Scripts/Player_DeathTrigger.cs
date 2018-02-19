@@ -12,6 +12,7 @@ public class Player_DeathTrigger : MonoBehaviour {
         if(other.tag == tag_deathTrigger)
         {
             Debug.Log("You died.");
+            // Can change this to CheckpointLoad_Player in ReloadCheckpoint.cs
             ReloadLevel();
         }
     }
