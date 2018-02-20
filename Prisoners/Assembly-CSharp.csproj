@@ -51,13 +51,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LeverMovement.cs" />
-     <Compile Include="Assets\LoadLevel.cs" />
-     <Compile Include="Assets\ResetPos.cs" />
      <Compile Include="Assets\Scripts\Breakable.cs" />
+     <Compile Include="Assets\Scripts\Checkpoints\Checkpoint_Order.cs" />
+     <Compile Include="Assets\Scripts\Checkpoints\Player_CheckpointFlag.cs" />
+     <Compile Include="Assets\Scripts\Checkpoints\ReloadCheckpoint.cs" />
      <Compile Include="Assets\Scripts\CreateChain.cs" />
+     <Compile Include="Assets\Scripts\LeverMovement.cs" />
      <Compile Include="Assets\Scripts\Lift.cs" />
+     <Compile Include="Assets\Scripts\LoadLevel.cs" />
+     <Compile Include="Assets\Scripts\Player_DeathTrigger.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\ResetPos.cs" />
      <Compile Include="Assets\Scripts\SceneTransition.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
