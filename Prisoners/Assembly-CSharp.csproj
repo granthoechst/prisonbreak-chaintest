@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LeverMovement.cs" />
+     <Compile Include="Assets\LoadLevel.cs" />
+     <Compile Include="Assets\ResetPos.cs" />
      <Compile Include="Assets\Scripts\Breakable.cs" />
      <Compile Include="Assets\Scripts\Checkpoints\Checkpoint_Order.cs" />
      <Compile Include="Assets\Scripts\Checkpoints\Player_CheckpointFlag.cs" />

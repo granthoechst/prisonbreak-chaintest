@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject grabbed;
 
+    // width of the character sprites
+    const float smallWidth = .625f;
+    const float bigWidth = 1.06f;
     // basic movement constants
     const float bigSpeed = 10f;
     const float bigJumpSpeed = 30f;
@@ -311,7 +314,17 @@ public class PlayerController : MonoBehaviour {
 
         leftRayStart = gameObject.transform.position;
         rightRayStart = leftRayStart;
-        rightRayStart.x += 2 * pivotAnchorOffset;
+
+        // assign right ray according to player sprite width
+        if (gameObject.tag == "Player2")
+        {
+            rightRayStart.x += smallWidth;
+        }
+        else
+        {
+            rightRayStart.x += bigWidth;
+        }
+        
 
         Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
         Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
