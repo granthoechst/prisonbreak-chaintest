@@ -5,6 +5,7 @@ using UnityEngine;
 public class spawner : MonoBehaviour {
     public GameObject item;                // The enemy prefab to be spawned.
     public float spawnTime = 3f;            // How long between each spawn.
+    public GameObject lever; // lever to control spawner
 
     void Start()
     {
@@ -16,11 +17,11 @@ public class spawner : MonoBehaviour {
     void Spawn()
     {
         // If the spawner is off
-        if (false)
+        if (lever && lever.GetComponent<spawnLever>().off)
         {
             return;
         }
         // Create an instance of the item prefab right below the spawner
-        Instantiate(item, transform);
+        Instantiate(item, this.transform.position, this.transform.rotation);
     }
 }
