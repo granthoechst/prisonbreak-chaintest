@@ -20,11 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4592296783449346}
   - component: {fileID: 61055590471412540}
-  - component: {fileID: 114832479349005816}
-  m_Layer: 0
+  - component: {fileID: 114387680680085382}
+  - component: {fileID: 114444850021772526}
+  m_Layer: 8
   m_Name: SceneTransitionTrigger
   m_TagString: Transition
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -53,7 +54,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 10.081926, y: 9.052037}
+  m_Offset: {x: 11.320978, y: 5.747905}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -64,9 +65,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 21.163853, y: 19.104074}
+  m_Size: {x: 5.469181, y: 12.49581}
   m_EdgeRadius: 0
---- !u!114 &114832479349005816
+--- !u!114 &114387680680085382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -74,6 +75,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747825652646202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a526d178fd0c5e148bffa1ed7b59e24e, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b0cc3de9b7bb54b955028f686476a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114444850021772526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747825652646202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79ea936e7ae6416d80f97feaf9fdbc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelToLoad: 1

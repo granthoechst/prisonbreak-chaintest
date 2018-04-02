@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class spawner : MonoBehaviour {
     public GameObject item;                // The enemy prefab to be spawned.
-    public float spawnTime = 3f;            // How long between each spawn.
+    public float spawnTime = 8f;            // How long between each spawn.
     public GameObject lever; // lever to control spawner
 
     void Start()

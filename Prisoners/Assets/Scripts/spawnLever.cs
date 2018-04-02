@@ -14,4 +14,9 @@ public class spawnLever : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        off = false;
+    }
 }
