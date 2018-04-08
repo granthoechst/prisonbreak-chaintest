@@ -19,6 +19,6 @@ public class SceneTransition : MonoBehaviour {
     void ChangeScene(int levelIndex)
     {
         SceneManager.LoadScene(levelIndex);
-        Debug.Log("Loaded level index" + levelIndex);
+        Debug.Log("Loaded level index " + levelIndex);
     }
 }
