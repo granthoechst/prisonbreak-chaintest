@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     bool canGrab = false;
     bool isGrabbing = false;
     public bool isGrounded = false;
+    public bool isWorldGrounded = false;
 
     private Transform anchorPoint;
     private Rigidbody2D rb2d;
@@ -288,6 +289,11 @@ public class PlayerController : MonoBehaviour {
 
     private void Grabbing()
     {
+        // disallow grabs if the character is only grounded on that object it is grabbing
+        if (!IsCharacterGrounded(grabTrigger.parent.gameObject))
+        {
+            return;
+        }
         isGrabbing = true;
         HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
         hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
@@ -307,7 +313,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private bool IsCharacterGrounded()
+    // param exclude is an object that does not count as ground
+    private bool IsCharacterGrounded(GameObject exclude = null)
     {
         Vector3 leftRayStart;
         Vector3 rightRayStart;
@@ -324,7 +331,7 @@ public class PlayerController : MonoBehaviour {
         {
             rightRayStart.x += bigWidth;
         }
-        
+
 
         Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
         Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
@@ -332,8 +339,11 @@ public class PlayerController : MonoBehaviour {
         float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         //float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         // Check if below object is part of physical environment layer
-        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
-        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
+        int mask = 1 << LayerMask.NameToLayer("World");
+        mask |= 1 << LayerMask.NameToLayer("Draggable");
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, mask);
+        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, mask);
 
         // the purpose of this was to tell the game small guy is grounded while lifted by the big one
         bool lifted = false;
@@ -348,7 +358,22 @@ public class PlayerController : MonoBehaviour {
                 lifted = rb2d.velocity == hitBigL.collider.gameObject.GetComponent<Rigidbody2D>().velocity;
             }
         }
+        // not grounded if both rays only hit the excluded object or no object
+        if (exclude != null)
+        {
+            Collider2D left = hitLeft.collider;
+            Collider2D right = hitRight.collider;
+            //Debug.Log(exclude.transform);
+            //Debug.Log(right.transform.parent);
+            //Debug.Log(left.transform.parent);
+            if ((left == null || left.transform.parent == null || left.transform.parent == exclude.transform) &&
+                (right == null || right.transform.parent == null || right.transform.parent == exclude.transform))
+            {
+                return false;
+            }
+        }
 
+        // only count lifted as grounded if no object is excluded
         return hitLeft || hitRight || lifted;
     }
 
@@ -377,7 +402,6 @@ public class PlayerController : MonoBehaviour {
         {
             canAnchor = true;
             anchorPoint = other.transform;
-            Debug.Log("Enter");
         }   
     }
 

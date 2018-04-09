@@ -14,8 +14,8 @@ public class Breakable : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Velocity: " + other.relativeVelocity.magnitude);
-        Debug.Log("Mass: " + other.gameObject.GetComponent<Rigidbody2D>().mass);
+        //Debug.Log("Velocity: " + other.relativeVelocity.magnitude);
+        //Debug.Log("Mass: " + other.gameObject.GetComponent<Rigidbody2D>().mass);
 
         if (other.relativeVelocity.magnitude * other.gameObject.GetComponent<Rigidbody2D>().mass > collisionForce)
         {
