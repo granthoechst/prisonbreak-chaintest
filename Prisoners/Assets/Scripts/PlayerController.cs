@@ -289,6 +289,11 @@ public class PlayerController : MonoBehaviour {
 
     private void Grabbing()
     {
+        // disallow grabs if the character is only grounded on that object it is grabbing
+        if (!IsCharacterGrounded(grabTrigger.parent.gameObject))
+        {
+            return;
+        }
         isGrabbing = true;
         HingeJoint2D hingeJoint = gameObject.AddComponent<HingeJoint2D>();
         hingeJoint.connectedBody = grabTrigger.parent.gameObject.GetComponent<Rigidbody2D>();
@@ -326,7 +331,7 @@ public class PlayerController : MonoBehaviour {
         {
             rightRayStart.x += bigWidth;
         }
-        
+
 
         Debug.DrawRay(leftRayStart, Vector3.down, Color.blue);
         Debug.DrawRay(rightRayStart, Vector3.down, Color.blue);
@@ -353,9 +358,23 @@ public class PlayerController : MonoBehaviour {
                 lifted = rb2d.velocity == hitBigL.collider.gameObject.GetComponent<Rigidbody2D>().velocity;
             }
         }
+        // not grounded if both rays only hit the excluded object or no object
+        if (exclude != null)
+        {
+            Collider2D left = hitLeft.collider;
+            Collider2D right = hitRight.collider;
+            //Debug.Log(exclude.transform);
+            //Debug.Log(right.transform.parent);
+            //Debug.Log(left.transform.parent);
+            if ((left == null || left.transform.parent == null || left.transform.parent == exclude.transform) &&
+                (right == null || right.transform.parent == null || right.transform.parent == exclude.transform))
+            {
+                return false;
+            }
+        }
 
         // only count lifted as grounded if no object is excluded
-        return hitLeft || hitRight || (lifted && exclude == null);
+        return hitLeft || hitRight || lifted;
     }
 
     void Flip()
@@ -372,7 +391,7 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         // Draggable
-        if(other.gameObject.layer == 10 && IsCharacterGrounded()) // Draggable layer
+        if(other.gameObject.layer == 10) // Draggable layer
         {
             canGrab = true;
             other.transform.parent.GetComponentInChildren<MeshRenderer>().enabled = true;
@@ -383,7 +402,6 @@ public class PlayerController : MonoBehaviour {
         {
             canAnchor = true;
             anchorPoint = other.transform;
-            Debug.Log("Enter");
         }   
     }
 
