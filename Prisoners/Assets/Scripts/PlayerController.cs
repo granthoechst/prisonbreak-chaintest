@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     bool canGrab = false;
     bool isGrabbing = false;
     public bool isGrounded = false;
+    public bool isWorldGrounded = false;
 
     private Transform anchorPoint;
     private Rigidbody2D rb2d;
@@ -307,7 +308,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private bool IsCharacterGrounded()
+    // param exclude is an object that does not count as ground
+    private bool IsCharacterGrounded(GameObject exclude = null)
     {
         Vector3 leftRayStart;
         Vector3 rightRayStart;
@@ -332,8 +334,11 @@ public class PlayerController : MonoBehaviour {
         float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         //float rayLength = GetComponent<CapsuleCollider2D>().size.y / 2 + 0.1f;
         // Check if below object is part of physical environment layer
-        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
-        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("World") | 1 << LayerMask.NameToLayer("Draggable"));
+        int mask = 1 << LayerMask.NameToLayer("World");
+        mask |= 1 << LayerMask.NameToLayer("Draggable");
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, mask);
+        RaycastHit2D hitRight = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, mask);
 
         // the purpose of this was to tell the game small guy is grounded while lifted by the big one
         bool lifted = false;
@@ -349,7 +354,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        return hitLeft || hitRight || lifted;
+        // only count lifted as grounded if no object is excluded
+        return hitLeft || hitRight || (lifted && exclude == null);
     }
 
     void Flip()
@@ -366,7 +372,7 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         // Draggable
-        if(other.gameObject.layer == 10) // Draggable layer
+        if(other.gameObject.layer == 10 && IsCharacterGrounded()) // Draggable layer
         {
             canGrab = true;
             other.transform.parent.GetComponentInChildren<MeshRenderer>().enabled = true;
