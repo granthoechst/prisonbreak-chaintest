@@ -275,6 +275,18 @@ public class PlayerController : MonoBehaviour {
         //else if (move < 0 && facingRight)
         //    Flip();
     }
+    // reset swinging ability when you collide with an object (less annoying)
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (gameObject.tag == "Player1")
+        {
+            swingFlagBig = 0;
+        } 
+        else if (gameObject.tag == "Player2")
+        {
+            swingFlagSmall = 0;
+        }
+    }
 
     private int getLinkIndex(float dist)
     {
