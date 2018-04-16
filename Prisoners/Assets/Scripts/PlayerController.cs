@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour {
             RaycastHit2D hitBigR = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
             lifted = (hitBigL.collider != null) && (hitBigR.collider != null);
             // checks that it is actually lifting, not just overlapping, by checking that the players have the same velocity
-            if (lifted)
+            if (lifted && hitBigL.collider.gameObject.GetComponent<Rigidbody2D>())
             {
                 lifted = rb2d.velocity == hitBigL.collider.gameObject.GetComponent<Rigidbody2D>().velocity;
             }
@@ -384,9 +384,8 @@ public class PlayerController : MonoBehaviour {
                 return false;
             }
         }
-
         // only count lifted as grounded if no object is excluded
-        return hitLeft || hitRight || lifted;
+        return hitLeft.collider || hitRight.collider || lifted;
     }
 
     void Flip()

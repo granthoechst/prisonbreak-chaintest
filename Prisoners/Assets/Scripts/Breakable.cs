@@ -9,7 +9,7 @@ public class Breakable : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log("Velocity: ");
+        //Debug.Log("Velocity: ");
     }
 
     void OnCollisionEnter2D(Collision2D other)

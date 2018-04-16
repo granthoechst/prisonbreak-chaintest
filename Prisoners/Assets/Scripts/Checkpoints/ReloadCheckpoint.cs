@@ -13,16 +13,11 @@ public class ReloadCheckpoint : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            furthestCheckpoint = Player_CheckpointFlag.player_FurthestCheckpointReached;
-            if (furthestCheckpoint == null)
-            {
-                ReloadCurrentLevel();
-            }
-            else
-            {
-                Debug.Log(furthestCheckpoint.name);
-                CheckpointLoad_Player();
-            }
+            CheckpointLoad_Player();
+        }
+        else if(Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadCurrentLevel();
         }
     }
 
@@ -32,10 +27,21 @@ public class ReloadCheckpoint : MonoBehaviour {
         SceneManager.LoadScene(currentScene);
     }
 
-    void CheckpointLoad_Player()
+    public void CheckpointLoad_Player()
     {
-        Debug.Log("Checkpoint transform: " + furthestCheckpoint.transform.position);
-        player1Reference.transform.position = furthestCheckpoint.transform.position + new Vector3(-1.0f,0,0);
-        player2Reference.transform.position = furthestCheckpoint.transform.position + new Vector3(1.0f,0,0);
+        furthestCheckpoint = Player_CheckpointFlag.player_FurthestCheckpointReached;
+        if (furthestCheckpoint == null)
+        {
+            ReloadCurrentLevel();
+        }
+        else
+        {
+
+            Debug.Log("Checkpoint transform: " + furthestCheckpoint.transform.position);
+            player1Reference.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            player2Reference.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            player1Reference.transform.position = furthestCheckpoint.transform.position + new Vector3(-1.0f, 0, 0);
+            player2Reference.transform.position = furthestCheckpoint.transform.position + new Vector3(1.0f, 0, 0);
+        }
     }
 }
