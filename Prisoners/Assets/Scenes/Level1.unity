@@ -780,6 +780,63 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f12da2692e84e8499ccacad35d2239c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &430047414
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1630678181}
+    m_Modifications:
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -9.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -5.383095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.09515617
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61073563493705844, guid: 3871a0c726ad0d64298b109f64ed49c0,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.12607956
+      objectReference: {fileID: 0}
+    - target: {fileID: 61073563493705844, guid: 3871a0c726ad0d64298b109f64ed49c0,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2.0819016
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3871a0c726ad0d64298b109f64ed49c0, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &430047415 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4463655237775276, guid: 3871a0c726ad0d64298b109f64ed49c0,
+    type: 2}
+  m_PrefabInternal: {fileID: 430047414}
 --- !u!1001 &475104250
 Prefab:
   m_ObjectHideFlags: 0
@@ -1250,9 +1307,29 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114081555033250670, guid: dec12441445354c449e22239b3d8dd5e,
+        type: 2}
+      propertyPath: checkpointReloader
+      value: 
+      objectReference: {fileID: 2092448034}
+    - target: {fileID: 114111514534800006, guid: dec12441445354c449e22239b3d8dd5e,
+        type: 2}
+      propertyPath: checkpointReloader
+      value: 
+      objectReference: {fileID: 2092448034}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &725856136 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1428186081003678, guid: dec12441445354c449e22239b3d8dd5e,
+    type: 2}
+  m_PrefabInternal: {fileID: 725856135}
+--- !u!1 &725856137 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1198767689545808, guid: dec12441445354c449e22239b3d8dd5e,
+    type: 2}
+  m_PrefabInternal: {fileID: 725856135}
 --- !u!1001 &747968244
 Prefab:
   m_ObjectHideFlags: 0
@@ -2489,6 +2566,36 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5db8793c286dd5141af6e0e28f79ee1b, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1630678180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1630678181}
+  m_Layer: 0
+  m_Name: Checkpoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1630678181
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630678180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -79.45774, y: 50.31983, z: -0.09515617}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 430047415}
+  - {fileID: 2092448035}
+  m_Father: {fileID: 0}
+  m_RootOrder: 50
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1652395420
 Prefab:
   m_ObjectHideFlags: 0
@@ -2654,6 +2761,26 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.x
       value: 9.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 61018999081941824, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.06754637
+      objectReference: {fileID: 0}
+    - target: {fileID: 61018999081941824, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.8767519
+      objectReference: {fileID: 0}
+    - target: {fileID: 61208783454642886, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.08049114
+      objectReference: {fileID: 0}
+    - target: {fileID: 61208783454642886, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.8508624
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9c92d5f4d6318d4faf375d71be20618, type: 2}
@@ -3227,6 +3354,49 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cdc6e9b2878c5fd4881fa2a138492f8d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2092448034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2092448035}
+  - component: {fileID: 2092448036}
+  m_Layer: 0
+  m_Name: CheckpointReloader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2092448035
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2092448034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1630678181}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2092448036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2092448034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16d6e944e9fe284c9b81560099001fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furthestCheckpoint: {fileID: 0}
+  player1Reference: {fileID: 725856137}
+  player2Reference: {fileID: 725856136}
 --- !u!1001 &2119779759
 Prefab:
   m_ObjectHideFlags: 0

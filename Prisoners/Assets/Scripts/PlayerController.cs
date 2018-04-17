@@ -378,9 +378,12 @@ public class PlayerController : MonoBehaviour {
             //Debug.Log(exclude.transform);
             //Debug.Log(right.transform.parent);
             //Debug.Log(left.transform.parent);
-            if ((left == null || left.transform.parent == null || left.transform.parent == exclude.transform) &&
-                (right == null || right.transform.parent == null || right.transform.parent == exclude.transform))
+            if ((left == null || left.transform.parent == exclude.transform) &&
+                (right == null || right.transform.parent == exclude.transform))
             {
+                Debug.Log(exclude.transform);
+                Debug.Log(left.transform.parent);
+                Debug.Log(right.transform.parent);
                 return false;
             }
         }
