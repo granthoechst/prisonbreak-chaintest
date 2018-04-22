@@ -1235,16 +1235,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 224228442200605654, guid: 5db8793c286dd5141af6e0e28f79ee1b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0025001168
-      objectReference: {fileID: 0}
-    - target: {fileID: 224389235009269144, guid: 5db8793c286dd5141af6e0e28f79ee1b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0024998188
-      objectReference: {fileID: 0}
     - target: {fileID: 1559662925032272, guid: 5db8793c286dd5141af6e0e28f79ee1b, type: 2}
       propertyPath: m_Name
       value: Draggable (3)
@@ -1317,6 +1307,14 @@ Prefab:
       propertyPath: checkpointReloader
       value: 
       objectReference: {fileID: 2092448034}
+    - target: {fileID: 4572013702810650, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572013702810650, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.262
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
   m_IsPrefabParent: 0
@@ -2251,7 +2249,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4514726134471582, guid: cdc6e9b2878c5fd4881fa2a138492f8d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 46.19
+      value: 47.1
       objectReference: {fileID: 0}
     - target: {fileID: 4514726134471582, guid: cdc6e9b2878c5fd4881fa2a138492f8d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2548,16 +2546,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224228442200605654, guid: 5db8793c286dd5141af6e0e28f79ee1b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0025001168
-      objectReference: {fileID: 0}
-    - target: {fileID: 224389235009269144, guid: 5db8793c286dd5141af6e0e28f79ee1b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0024998188
       objectReference: {fileID: 0}
     - target: {fileID: 1559662925032272, guid: 5db8793c286dd5141af6e0e28f79ee1b, type: 2}
       propertyPath: m_Name

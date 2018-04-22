@@ -2624,6 +2624,14 @@ Prefab:
       propertyPath: checkpointReloader
       value: 
       objectReference: {fileID: 920679141}
+    - target: {fileID: 4572013702810650, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572013702810650, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.266
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
   m_IsPrefabParent: 0

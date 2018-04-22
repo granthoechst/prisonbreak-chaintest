@@ -6,26 +6,29 @@ public class Lift : MonoBehaviour {
 
 	public bool lifting;
 	public float distance = 4f;
-	RaycastHit2D hit;
+    RaycastHit2D ceilingCheck;
+    RaycastHit2D hit;
 	public Transform holdPoint;
 
 	private void FixedUpdate() {
-		if (Input.GetButton ("GrabBig")) {
-			if (!lifting) {
-
-				Physics2D.queriesStartInColliders = false;
+        ceilingCheck = Physics2D.Raycast(transform.position + new Vector3(0, .5f, 0), Vector2.up, distance, 1 << LayerMask.NameToLayer("World"));
+        if (Input.GetButton ("GrabBig")) {   
+            if (!lifting && !ceilingCheck)
+            {
+                Physics2D.queriesStartInColliders = false;
 				hit = Physics2D.Raycast (transform.position + new Vector3(0,1,0), Vector2.right, distance, 1 << LayerMask.NameToLayer("Default"));
 				if (hit.collider != null && hit.collider.gameObject.tag == "Player2") {
 					lifting = true;
-
 				}
 			}
 		}
 		if (lifting) {
 			hit.collider.attachedRigidbody.position = holdPoint.position;
 			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = true;
-		}
-		if (lifting && Input.GetButton ("Up2")) 
+            //if 
+            //GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+		if (lifting && (Input.GetButton ("Up2") || ceilingCheck))
 		{
 			lifting = false;
 			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = false;
