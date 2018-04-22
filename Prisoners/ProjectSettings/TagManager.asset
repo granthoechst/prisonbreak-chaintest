@@ -7,6 +7,10 @@ TagManager:
   - Player1
   - Player2
   - Chain
+  - Hook
+  - Transition
+  - CheckpointFlag
+  - Death
   layers:
   - Default
   - TransparentFX
@@ -18,10 +22,10 @@ TagManager:
   - 
   - World
   - Chain
-  - 
-  - 
-  - 
-  - 
+  - Draggable
+  - Mount
+  - Background
+  - ChainCollide
   - 
   - 
   - 
@@ -41,9 +45,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Chain
+    uniqueID: 2957699425
+    locked: 0
+  - name: Chain Front
+    uniqueID: 3644071645
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Chain
-    uniqueID: 2957699425
+  - name: Background
+    uniqueID: 3887581501
     locked: 0
