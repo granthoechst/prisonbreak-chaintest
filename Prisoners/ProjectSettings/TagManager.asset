@@ -45,6 +45,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3887581501
+    locked: 0
   - name: Chain
     uniqueID: 2957699425
     locked: 0
@@ -54,6 +57,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 3887581501
+  - name: Menu
+    uniqueID: 1071262715
     locked: 0

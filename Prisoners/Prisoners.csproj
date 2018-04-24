@@ -288,6 +288,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ControlsPage.cs" />
     <Compile Include="Assets\Scripts\Breakable.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\Checkpoint_Order.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\Player_CheckpointFlag.cs" />
