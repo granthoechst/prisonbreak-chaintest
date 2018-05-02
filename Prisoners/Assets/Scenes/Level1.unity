@@ -2821,6 +2821,16 @@ Prefab:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 212879501397636170, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212879501397636170, guid: f9c92d5f4d6318d4faf375d71be20618,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9c92d5f4d6318d4faf375d71be20618, type: 2}
   m_IsPrefabParent: 0
