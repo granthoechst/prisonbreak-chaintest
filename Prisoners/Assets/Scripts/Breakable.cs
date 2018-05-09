@@ -16,10 +16,14 @@ public class Breakable : MonoBehaviour {
     {
         //Debug.Log("Velocity: " + other.relativeVelocity.magnitude);
         //Debug.Log("Mass: " + other.gameObject.GetComponent<Rigidbody2D>().mass);
-
+        if (other.gameObject.name == "SpawnerDrop(Clone)")
+        {
+            Destroy(other.gameObject);
+        }
         if (other.relativeVelocity.magnitude * other.gameObject.GetComponent<Rigidbody2D>().mass > collisionForce)
         {
             Destroy(gameObject);
+            
         }
         if (other.gameObject.GetComponent<Rigidbody2D>().mass > breakMass)
         {

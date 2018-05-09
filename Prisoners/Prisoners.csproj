@@ -294,10 +294,12 @@
     <Compile Include="Assets\Scripts\Checkpoints\Player_CheckpointFlag.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\ReloadCheckpoint.cs" />
     <Compile Include="Assets\Scripts\CreateChain.cs" />
+    <Compile Include="Assets\Scripts\DontDestroy.cs" />
     <Compile Include="Assets\Scripts\dropDestroyer.cs" />
     <Compile Include="Assets\Scripts\LeverMovement.cs" />
     <Compile Include="Assets\Scripts\Lift.cs" />
     <Compile Include="Assets\Scripts\LoadLevel.cs" />
+    <Compile Include="Assets\Scripts\MusicControl.cs" />
     <Compile Include="Assets\Scripts\Player_DeathTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResetPos.cs" />
