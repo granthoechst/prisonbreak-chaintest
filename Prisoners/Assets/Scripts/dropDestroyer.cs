@@ -15,7 +15,7 @@ public class dropDestroyer : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == 13)
+        if (other.gameObject.layer == 13 || other.gameObject.layer == 10)
         {
             Destroy(other.gameObject);
         }

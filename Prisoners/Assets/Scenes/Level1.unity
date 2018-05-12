@@ -3134,7 +3134,7 @@ Prefab:
     - target: {fileID: 102517283162579158, guid: f9c92d5f4d6318d4faf375d71be20618,
         type: 2}
       propertyPath: m_FontSize
-      value: 36
+      value: 48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9c92d5f4d6318d4faf375d71be20618, type: 2}
@@ -3503,7 +3503,7 @@ Prefab:
     - target: {fileID: 114444850021772526, guid: 05f7ba8b313936f4591bdd27f3ec2d1e,
         type: 2}
       propertyPath: levelToLoad
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05f7ba8b313936f4591bdd27f3ec2d1e, type: 2}

@@ -11,7 +11,7 @@ public class Lift : MonoBehaviour {
 	public Transform holdPoint;
 
 	private void FixedUpdate() {
-        ceilingCheck = Physics2D.Raycast(transform.position + new Vector3(0, .2f, 0), Vector2.up, distance, 1 << LayerMask.NameToLayer("World"));
+        ceilingCheck = Physics2D.Raycast(transform.position + new Vector3(.1f, .2f, 0), Vector2.up, distance, 1 << LayerMask.NameToLayer("World"));
         if (Input.GetButton ("GrabBig")) {   
             if (!lifting && !ceilingCheck)
             {
