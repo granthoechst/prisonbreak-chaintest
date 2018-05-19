@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 
     private Transform anchorPoint;
     private Rigidbody2D rb2d;
+    private Animator animator;
     private GameObject chain;
     private HingeJoint2D climbJoint;
     private Transform grabTrigger;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         chain = GameObject.Find("Chain");
         numLinks = chain.transform.childCount;
         // initialize climbing joint
@@ -67,9 +69,15 @@ public class PlayerController : MonoBehaviour {
             horizontal = Input.GetAxis("Horizontal1");
             if (isGrounded) // on the ground - side to side, jump, crouch, reset flags
             {
+                animator.SetBool("Climbing", false);
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
+                    GetComponent<SpriteRenderer>().flipX = (horizontal < 0);
+                    animator.SetBool("Moving", true);
+                } else
+                {
+                    animator.SetBool("Moving", false);
                 }
                 if (Input.GetButtonDown("Up1"))
                 {
@@ -97,6 +105,7 @@ public class PlayerController : MonoBehaviour {
                 int oldClimbLink = (int)climbLinkBig;
                 if (Input.GetButton("Up1"))
                 {
+                    animator.SetBool("Climbing", true);
                     if (climbLinkBig < numLinks)
                     {
                         climbLinkBig += climbSpeed;
@@ -104,10 +113,15 @@ public class PlayerController : MonoBehaviour {
                 }
                 else if (Input.GetButton("GrabBig"))
                 {
+                    animator.SetBool("Climbing", true);
                     if (climbLinkBig > 0)
                     {
                         climbLinkBig -= climbSpeed;
                     }
+                }
+                else
+                {
+                    animator.SetBool("Climbing", false);
                 }
                 // rebuild the hingejoint according to climblink
                 if (climbLinkBig <= 0)
@@ -168,9 +182,16 @@ public class PlayerController : MonoBehaviour {
             horizontal = Input.GetAxis("Horizontal2");
             if (isGrounded) // on the ground - side to side, jump, crouch, reset flags
             {
+                animator.SetBool("Climbing", false);
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
+                    GetComponent<SpriteRenderer>().flipX = (horizontal < 0);
+                    animator.SetBool("Moving", true);
+                }
+                else
+                {
+                    animator.SetBool("Moving", false);
                 }
                 if (Input.GetButtonDown("Up2"))
                 {
@@ -198,6 +219,7 @@ public class PlayerController : MonoBehaviour {
                 int oldClimbLink = (int)climbLinkSmall;
                 if (Input.GetButton("Up2"))
                 {
+                    animator.SetBool("Climbing", true);
                     if (climbLinkSmall < numLinks)
                     {
                         climbLinkSmall += climbSpeed;
@@ -205,10 +227,15 @@ public class PlayerController : MonoBehaviour {
                 }
                 else if (Input.GetButton("GrabSmall"))
                 {
+                    animator.SetBool("Climbing", true);
                     if (climbLinkSmall > 0)
                     {
                         climbLinkSmall -= climbSpeed;
                     }
+                }
+                else
+                {
+                    animator.SetBool("Climbing", false);
                 }
                 // rebuild the hingejoint according to climblink
                 if (climbLinkSmall <= 0)

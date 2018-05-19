@@ -9,8 +9,14 @@ public class Lift : MonoBehaviour {
     RaycastHit2D ceilingCheck;
     RaycastHit2D hit;
 	public Transform holdPoint;
+    private Animator animator;
 
-	private void FixedUpdate() {
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    private void FixedUpdate() {
         ceilingCheck = Physics2D.Raycast(transform.position + new Vector3(.1f, .2f, 0), Vector2.up, distance, 1 << LayerMask.NameToLayer("World"));
         if (Input.GetButton ("GrabBig")) {   
             if (!lifting && !ceilingCheck)
@@ -25,15 +31,15 @@ public class Lift : MonoBehaviour {
 		if (lifting) {
 			hit.collider.attachedRigidbody.position = holdPoint.position;
 			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = true;
-            //if 
-            //GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            animator.SetBool("Lifting", true);
         }
 		if (lifting && (Input.GetButton ("Up2") || ceilingCheck))
 		{
 			lifting = false;
 			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = false;
 			hit.collider.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x,30);
-		}
+            animator.SetBool("Lifting", false);
+        }
 	}
 
 	void OnDrawGizmos(){

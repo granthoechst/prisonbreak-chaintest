@@ -920,6 +920,11 @@ Prefab:
       propertyPath: checkpointReloader
       value: 
       objectReference: {fileID: 1075203446}
+    - target: {fileID: 212482306679701746, guid: dec12441445354c449e22239b3d8dd5e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dec12441445354c449e22239b3d8dd5e, type: 2}
   m_IsPrefabParent: 0
@@ -928,6 +933,23 @@ GameObject:
   m_PrefabParentObject: {fileID: 1428186081003678, guid: dec12441445354c449e22239b3d8dd5e,
     type: 2}
   m_PrefabInternal: {fileID: 423755963}
+--- !u!95 &423755974
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 423755964}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47c006b291ce6844daa6e0f095620bfc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &441000565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1189,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4044765855565586, guid: 5d5c85afca1a168478d344eea06004ce, type: 2}
       propertyPath: m_LocalScale.x
-      value: 2.8758078
+      value: 2.8213093
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d5c85afca1a168478d344eea06004ce, type: 2}
@@ -4584,6 +4606,23 @@ GameObject:
   m_PrefabParentObject: {fileID: 1198767689545808, guid: dec12441445354c449e22239b3d8dd5e,
     type: 2}
   m_PrefabInternal: {fileID: 423755963}
+--- !u!95 &1799137475
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799137464}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 736068526c683f741899a63dedb1ff80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1833679805
 Prefab:
   m_ObjectHideFlags: 0
