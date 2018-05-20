@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlsPage : MonoBehaviour {
+    private bool show = true;
+
     void Start () {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -25,7 +27,11 @@ public class ControlsPage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<SpriteRenderer>().enabled = Input.GetButton("Controls")
-        || Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2);
+        if (Input.GetButtonDown("Controls")
+            || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        {
+            show = !show;
+        }
+        GetComponent<SpriteRenderer>().enabled = show; 
     }
 }

@@ -30,7 +30,7 @@ public class Lift : MonoBehaviour {
 		}
 		if (lifting) {
 			hit.collider.attachedRigidbody.position = holdPoint.position;
-			hit.collider.gameObject.GetComponent<DistanceJoint2D> ().enableCollision = true;
+			hit.collider.gameObject.GetComponent<DistanceJoint2D>().enableCollision = true;
             animator.SetBool("Lifting", true);
         }
 		if (lifting && (Input.GetButton ("Up2") || ceilingCheck))

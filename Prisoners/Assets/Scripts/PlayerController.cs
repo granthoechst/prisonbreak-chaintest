@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 
     private float pivotAnchorOffset = 0.625f;
 
-    bool facingRight = true;
+    public bool facingRight = true;
     bool canAnchor = false;
     bool isAnchored = false;
     bool canGrab = false;
@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * bigSpeed, rb2d.velocity.y);
-                    GetComponent<SpriteRenderer>().flipX = (horizontal < 0);
                     animator.SetBool("Moving", true);
                 } else
                 {
@@ -186,7 +185,6 @@ public class PlayerController : MonoBehaviour {
                 if (horizontal != 0)
                 {
                     rb2d.velocity = new Vector2(horizontal * smallSpeed, rb2d.velocity.y);
-                    GetComponent<SpriteRenderer>().flipX = (horizontal < 0);
                     animator.SetBool("Moving", true);
                 }
                 else
@@ -297,10 +295,10 @@ public class PlayerController : MonoBehaviour {
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         }
-        //if (move > 0 && !facingRight)
-        //    Flip();
-        //else if (move < 0 && facingRight)
-        //    Flip();
+        if (horizontal > 0 && !facingRight)
+            Flip();
+        else if (horizontal < 0 && facingRight)
+            Flip();
     }
     // reset swinging ability when you collide with an object (less annoying)
     void OnCollisionExit2D(Collision2D other)
@@ -390,11 +388,24 @@ public class PlayerController : MonoBehaviour {
         {
             RaycastHit2D hitBigL = Physics2D.Raycast(leftRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
             RaycastHit2D hitBigR = Physics2D.Raycast(rightRayStart, Vector2.down, rayLength, 1 << LayerMask.NameToLayer("Default"));
-            lifted = (hitBigL.collider != null) && (hitBigR.collider != null);
             // checks that it is actually lifting, not just overlapping, by checking that the players have the same velocity
-            if (lifted && hitBigL.collider.gameObject.GetComponent<Rigidbody2D>())
+            if (hitBigL.collider != null && hitBigL.collider.gameObject.GetComponent<Rigidbody2D>())
             {
-                lifted = rb2d.velocity == hitBigL.collider.gameObject.GetComponent<Rigidbody2D>().velocity;
+                lifted = hitBigL.collider.gameObject.tag == "Player1";
+                // orient lifted little guy same way as big guy
+                if (lifted && (Mathf.Sign(hitBigL.collider.gameObject.transform.localScale.x) != Mathf.Sign(transform.localScale.x)))
+                {
+                    Flip();
+                }
+            }
+            else if (hitBigR.collider != null && hitBigR.collider.gameObject.GetComponent<Rigidbody2D>())
+            {
+                lifted = hitBigR.collider.gameObject.tag == "Player1";
+                // orient lifted little guy same way as big guy
+                if (lifted && (Mathf.Sign(hitBigR.collider.gameObject.transform.localScale.x) != Mathf.Sign(transform.localScale.x)))
+                {
+                    Flip();
+                }
             }
         }
         // not grounded if both rays only hit the excluded object or no object
@@ -425,8 +436,23 @@ public class PlayerController : MonoBehaviour {
         Vector3 theScale = transform.localScale;
 
         theScale.x *= -1;
-
         transform.localScale = theScale;
+
+        Vector3 pos = transform.position;
+        float halfWidth = .625f;
+        if(gameObject.tag == "Player1")
+        {
+            halfWidth = 1f;
+        }
+
+        if (facingRight)
+        {
+            pos.x -= halfWidth;
+        } else
+        {
+            pos.x += halfWidth;
+        }
+        transform.position = pos;
     }
 
     void OnTriggerEnter2D(Collider2D other)

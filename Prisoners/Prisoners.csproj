@@ -295,6 +295,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Breakable.cs" />
+    <Compile Include="Assets\Scripts\cameraFollow.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\Checkpoint_Order.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\Player_CheckpointFlag.cs" />
     <Compile Include="Assets\Scripts\Checkpoints\ReloadCheckpoint.cs" />
