@@ -3995,12 +3995,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 29
       objectReference: {fileID: 0}
-    - target: {fileID: 114081555033250670, guid: dec12441445354c449e22239b3d8dd5e,
+    - target: {fileID: 114111514534800006, guid: dec12441445354c449e22239b3d8dd5e,
         type: 2}
       propertyPath: checkpointReloader
       value: 
       objectReference: {fileID: 1075203446}
-    - target: {fileID: 114111514534800006, guid: dec12441445354c449e22239b3d8dd5e,
+    - target: {fileID: 114081555033250670, guid: dec12441445354c449e22239b3d8dd5e,
         type: 2}
       propertyPath: checkpointReloader
       value: 

@@ -22,7 +22,7 @@ public class Lift : MonoBehaviour {
             if (!lifting && !ceilingCheck)
             {
                 Physics2D.queriesStartInColliders = false;
-				hit = Physics2D.Raycast (transform.position + new Vector3(0,1,0), Vector2.right, distance, 1 << LayerMask.NameToLayer("Default"));
+				hit = Physics2D.Raycast (transform.position + new Vector3(-.5f,0,0), Vector2.right, distance, 1 << LayerMask.NameToLayer("Default"));
 				if (hit.collider != null && hit.collider.gameObject.tag == "Player2") {
 					lifting = true;
 				}

@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     // universal speed cap - (soft)
     const float maxSpeed = 30f;
 
-    private float pivotAnchorOffset = 0.625f;
+    private float pivotAnchorOffset = 0.5f;
 
     public bool facingRight = true;
     bool canAnchor = false;
@@ -491,8 +491,8 @@ public class PlayerController : MonoBehaviour {
     void AnchorSmall()
     {
         isAnchored = true;
-        GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x - pivotAnchorOffset, anchorPoint.transform.position.y - pivotAnchorOffset);
-
+        GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x, anchorPoint.transform.position.y - pivotAnchorOffset);
+        animator.SetBool("Moving", false);
         FixedJoint2D anchorJoint = this.gameObject.AddComponent<FixedJoint2D>();
         anchorJoint.connectedBody = anchorPoint.GetComponent<Rigidbody2D>();
     }
@@ -500,8 +500,8 @@ public class PlayerController : MonoBehaviour {
     void AnchorBig()
     {
         isAnchored = true;
-        GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x - 2*pivotAnchorOffset, anchorPoint.transform.position.y - 2*pivotAnchorOffset);
-
+        GetComponent<Rigidbody2D>().position = new Vector2(anchorPoint.transform.position.x, anchorPoint.transform.position.y - 2*pivotAnchorOffset);
+        animator.SetBool("Moving", false);
         FixedJoint2D anchorJoint = this.gameObject.AddComponent<FixedJoint2D>();
         anchorJoint.connectedBody = anchorPoint.GetComponent<Rigidbody2D>();
     }
